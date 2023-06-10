@@ -6,6 +6,13 @@
 
 Open Genome Explorer is a web app that utilizes the genetic information the user uploads in order to provide insights about their genome. By using data provided by open source SNP database [OpenSNP](https://opensnp.org/), the user may learn more about their health traits and genetic risk factors based on the genetic information they upload.
 
+## User Stories
+
+* As someone interested in my genetic background, I want to be able to explore my SNP array by providing a file I received from 23andMe so I can learn more about my genetic and health traits.
+* As a website visitor, I want to be able to sort through my results and search within them so I can find what I'm looking for with ease.
+* As a social user, I want to share interesting SNPs that I find with others.
+* As a social user, I want to be able to comment on other users' SNPs to share my thoughts.
+
 ## Usage
 
 * Create an account using built-in py4web auth and sign in.
