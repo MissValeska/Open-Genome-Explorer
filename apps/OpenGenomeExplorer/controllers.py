@@ -189,7 +189,7 @@ def share_snp():
         USE_GCS = False
     return dict(use_gcs=USE_GCS)
 
-@action('add_comment')
+@action('add_comment/<shared_snp_id>')
 @action.uses(url_signer.verify(), db, auth.user)
 def add_comment():
     shared_snp_id = request.params.get("shared_snp_id")
@@ -202,7 +202,7 @@ def get_shared_SNPs():
     user_snps = db(db.shared_SNP).select(orderby=~db.shared_SNP.weight_of_evidence).as_list()
     return dict(user_snps=user_snps)
 
-@action('get_comments')
+@action('get_comments/<shared_snp_id>')
 @action.uses(url_signer.verify(), db, auth.user)
 def get_comments():
     shared_snp_id = request.params.get("shared_snp_id")
@@ -318,7 +318,8 @@ def process_snps(file):
                 traits = {}
 
                 summary = ""
-
+                # Puts summary data into the DB, taken from a previous scrape session of opensnp, stored in a json file.
+                # Filters out any user SNPs that aren't in that file and that don't have a summary.
                 for each in opensnp_data[rsid]["annotations"]["snpedia"]:
                     traits[each["url"][-4] + each["url"][-2]] = each["summary"][0:len(each["summary"])]
                 if len(traits) != 0:
