@@ -48,7 +48,7 @@ def instructions():
         USE_GCS = False
     return dict(use_gcs=USE_GCS)
 
-@action('get_comment_url')
+@action('get_comment_url', method=['POST', 'GET'])
 @action.uses(url_signer.verify(), db, auth.user)
 def get_comments():
     snp_id = int(request.params.get("snp_id"))

@@ -7,7 +7,11 @@ This file is provided as an example:
 """
 import os
 from py4web.core import required_folder
-from .private.secrets import DB_USER, DB_USER_PASSWORD, DB_NAME, DB_CONNECTION_NAME
+# try import private settings
+try:
+    from .private.secrets import *
+except (ImportError, ModuleNotFoundError):
+    pass
 
 # db settings
 APP_FOLDER = os.path.dirname(__file__)
@@ -16,7 +20,8 @@ APP_NAME = os.path.split(APP_FOLDER)[-1]
 #               and is the store location for SQLite databases
 DB_FOLDER = required_folder(APP_FOLDER, "databases")
 
-CLOUD_DB_URI = f"google:MySQLdb://{DB_USER}:{DB_USER_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
+if DB_USER:
+    CLOUD_DB_URI = f"google:MySQLdb://{DB_USER}:{DB_USER_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
 CLOUD_DB_POOL_SIZE = 1
 CLOUD_DB_MIGRATE = False
 CLOUD_DB_FAKE_MIGRATE = False  # maybe?
@@ -97,8 +102,3 @@ T_FOLDER = required_folder(APP_FOLDER, "translations")
 USE_CELERY = False
 CELERY_BROKER = "redis://localhost:6379/0"
 
-# try import private settings
-try:
-    from .private.secrets import *
-except (ImportError, ModuleNotFoundError):
-    pass
