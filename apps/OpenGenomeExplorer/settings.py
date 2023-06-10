@@ -10,7 +10,9 @@ from py4web.core import required_folder
 # try import private settings
 try:
     from .private.secrets import *
+    CLOUD_DB_URI = f"google:MySQLdb://{DB_USER}:{DB_USER_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
 except (ImportError, ModuleNotFoundError):
+    CLOUD_DB_URI = "sqlite://storage.db"
     pass
 
 # db settings
@@ -20,8 +22,6 @@ APP_NAME = os.path.split(APP_FOLDER)[-1]
 #               and is the store location for SQLite databases
 DB_FOLDER = required_folder(APP_FOLDER, "databases")
 
-if DB_USER:
-    CLOUD_DB_URI = f"google:MySQLdb://{DB_USER}:{DB_USER_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
 CLOUD_DB_POOL_SIZE = 1
 CLOUD_DB_MIGRATE = False
 CLOUD_DB_FAKE_MIGRATE = False  # maybe?
