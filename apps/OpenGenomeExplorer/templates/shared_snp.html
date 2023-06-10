@@ -69,7 +69,6 @@
             <td>{{SNP.summary}}</td>
             <td>{{SNP.weight_of_evidence}}</td>
             <td><a :href='SNP.url'>{{SNP.url}}</a></td>
-            <td><a class="button" @click="[[=URL('comments', SNP.id, signer=url_signer)]]">Comment</a></td>
           </tr>
         </tbody>
       </table>
@@ -88,7 +87,6 @@
 <script>
   let get_shared_snps_url = "[[=XML(get_shared_snps_url)]]";
   let get_shared_sorted_snps_url = "[[=XML(get_shared_sorted_snps_url)]]";
-  let use_gcs = use_gcs || false;
 </script>
 <script type="module" src="js/shared_snp.js"></script>
 [[end]]

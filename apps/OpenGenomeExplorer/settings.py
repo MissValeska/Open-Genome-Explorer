@@ -13,7 +13,6 @@ try:
     from .private.secrets import *
     check_secrets = True
 except (ImportError, ModuleNotFoundError):
-    CLOUD_DB_URI = "sqlite://storage.db"
     pass
 
 # db settings
@@ -75,7 +74,7 @@ LOGGERS = [
 
 # single sign on Google (will be used if provided)
 # OAUTH2GOOGLE_CLIENT_ID = None # These are defined in private/secret.py
-# OAUTH2GOOGLE_CLIENT_SECRET = None
+# OAUTH2GOOGLE_CLIENT_SECRET = None 
 
 # single sign on Okta (will be used if provided. Please also add your tenant
 # name to py4web/utils/auth_plugins/oauth2okta.py. You can replace the XXX
@@ -104,3 +103,4 @@ T_FOLDER = required_folder(APP_FOLDER, "translations")
 # Celery settings
 USE_CELERY = False
 CELERY_BROKER = "redis://localhost:6379/0"
+
