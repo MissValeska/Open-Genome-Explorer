@@ -149,43 +149,43 @@ if settings.USE_LDAP:
     from py4web.utils.auth_plugins.ldap_plugin import LDAPPlugin
 
     auth.register_plugin(LDAPPlugin(db=db, groups=groups, **settings.LDAP_SETTINGS))
+if settings.check_secrets:
+    if settings.OAUTH2GOOGLE_CLIENT_ID:
+        from py4web.utils.auth_plugins.oauth2google import OAuth2Google  # TESTED
 
-if settings.OAUTH2GOOGLE_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2google import OAuth2Google  # TESTED
-
-    auth.register_plugin(
-        OAuth2Google(
-            client_id=settings.OAUTH2GOOGLE_CLIENT_ID,
-            client_secret=settings.OAUTH2GOOGLE_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2google/callback",
+        auth.register_plugin(
+            OAuth2Google(
+                client_id=settings.OAUTH2GOOGLE_CLIENT_ID,
+                client_secret=settings.OAUTH2GOOGLE_CLIENT_SECRET,
+                callback_url="auth/plugin/oauth2google/callback",
+            )
         )
-    )
-if settings.OAUTH2FACEBOOK_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2facebook import OAuth2Facebook  # UNTESTED
+    if settings.OAUTH2FACEBOOK_CLIENT_ID:
+        from py4web.utils.auth_plugins.oauth2facebook import OAuth2Facebook  # UNTESTED
 
-    auth.register_plugin(
-        OAuth2Facebook(
-            client_id=settings.OAUTH2FACEBOOK_CLIENT_ID,
-            client_secret=settings.OAUTH2FACEBOOK_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2facebook/callback",
+        auth.register_plugin(
+            OAuth2Facebook(
+                client_id=settings.OAUTH2FACEBOOK_CLIENT_ID,
+                client_secret=settings.OAUTH2FACEBOOK_CLIENT_SECRET,
+                callback_url="auth/plugin/oauth2facebook/callback",
+            )
         )
-    )
 
-if settings.OAUTH2OKTA_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2okta import OAuth2Okta  # TESTED
+    if settings.OAUTH2OKTA_CLIENT_ID:
+        from py4web.utils.auth_plugins.oauth2okta import OAuth2Okta  # TESTED
 
-    auth.register_plugin(
-        OAuth2Okta(
-            client_id=settings.OAUTH2OKTA_CLIENT_ID,
-            client_secret=settings.OAUTH2OKTA_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2okta/callback",
+        auth.register_plugin(
+            OAuth2Okta(
+                client_id=settings.OAUTH2OKTA_CLIENT_ID,
+                client_secret=settings.OAUTH2OKTA_CLIENT_SECRET,
+                callback_url="auth/plugin/oauth2okta/callback",
+            )
         )
-    )
 
-# #######################################################
-# Define a convenience action to allow users to download
-# files uploaded and reference by Field(type='upload')
-# #######################################################
+    # #######################################################
+    # Define a convenience action to allow users to download
+    # files uploaded and reference by Field(type='upload')
+    # #######################################################
 
 if not os.environ.get("GAE_ENV"):
     if settings.UPLOAD_FOLDER:

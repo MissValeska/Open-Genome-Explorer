@@ -8,8 +8,10 @@ This file is provided as an example:
 import os
 from py4web.core import required_folder
 # try import private settings
+check_secrets = False
 try:
     from .private.secrets import *
+    check_secrets = True
 except (ImportError, ModuleNotFoundError):
     pass
 
@@ -20,7 +22,7 @@ APP_NAME = os.path.split(APP_FOLDER)[-1]
 #               and is the store location for SQLite databases
 DB_FOLDER = required_folder(APP_FOLDER, "databases")
 
-if DB_USER:
+if check_secrets:
     CLOUD_DB_URI = f"google:MySQLdb://{DB_USER}:{DB_USER_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{DB_CONNECTION_NAME}"
 CLOUD_DB_POOL_SIZE = 1
 CLOUD_DB_MIGRATE = False
